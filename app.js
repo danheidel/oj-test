@@ -6,7 +6,7 @@ var port = process.argv[2];
 if(typeof port === 'undefined'){
 	console.error('no port defined!');
 	process.exit();
-}	
+}
 
 // all environments
 app.use(express.logger());

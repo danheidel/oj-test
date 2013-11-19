@@ -1,1 +1,210 @@
+<!-- OJ Example: Client-side with Backbone -->
 
+<html>
+  <head>
+  <meta charset="utf-8" />    
+  <title>Dan Heidel's stuff</title>
+  
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/foundation.css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/app.css" />
+
+  <!--Include jQuery -- This is the only dependency of OJ -->
+  <script src="http://code.jquery.com/jquery-2.0.2.min.js" type='text/javascript'></script>
+  <!--Include oj.js -->
+  <!--<script src="js/oj.js"></script>-->
+  <script src="http://ojjs.org/download/oj/latest/oj.js" type="text/javascript"></script>
+  <!--Optionally include Underscore / Backbone for two-way model binding -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js" type="text/javascript"></script>
+  <script src="js/foundation/foundation.js"></script>
+  <script src="js/foundation/foundation.orbit.js"></script>
+  <script src="js/foundation/foundation.reveal.js"></script>
+  <script src="js/foundation/foundation.topbar.js"></script>
+
+  </head>
+  <body>
+  </body>
+  <script src="js/es5shim.js"></script>
+  <script src="js/RaFlib.js"></script>
+  <script src="js/bgAnim.js"></script>
+  <script src="js/template.js"></script>
+  
+  <script>
+    $(function($){
+      oj.useGlobally();
+      
+      $('body').oj(function(){
+        canvas({id:"background-canvas"});
+        canvas({id:"foreground-canvas"});
+        
+        div({id:"title-header"}, function(){
+          div({c:"row"}, function(){
+            div({c:"small-12 large-7 columns hide-for-small"}, function(){
+              div({c:"title-header"}, function(){
+                h2("Dan Heidel's Stuff");
+              });
+            });
+          });
+        });
+        
+        window.blah = oj.FoundationTitleBar({mobile:{icon:true}, sticky:true}, oj._BarMainArea({tagType:'left'}, 1, 2, 3, 4, '-', 'a', 'b', _p('foo'), _BarMainArea({tagType:'right'}, 1, '-', 'a')));
+        window.foo = Table([1,2,3],[4,5,6]);;
+        //window.arr = oj.List(_p('foo'));
+        //window.foo = oj.BarMainArea({tagType:'left'}, 1, 2, 3, 4, '-', 'a', 'b', _p('foo'), _BarMainArea({tagType:'right'}, 1, '-', 'a'));
+        
+        div({c:"sticky", id:"sticky-thing"}, function(){
+          nav({c:"top-bar"}, function(){
+            ul({c:"title-area"}, function(){
+              li({c:"name"});
+              li({c:"toggle-topbar menu-icon"}, function(){
+                a({href:"#"}, function(){
+                  span("Menu");
+                });
+              });
+            });
+            section({c:"top-bar-section"}, function(){
+              ul({c:"left"}, function(){
+                li(function(){
+                  a({href:"#", c:"menu-item", id:"home-menu"}, function(){
+                    i({c:"icon-home icon-2x"});
+                  });
+                });
+                li({c:"has-dropdown", id:"artwork-menu"}, function(){
+                  a({href:"#art-main"}, "Artwork");
+                  ul({c:"dropdown"}, function(){
+                    li(function(){
+                      a({href:"#art-rain", c:"menu-item", style:"text-align: center"}, function(){
+                        img({src:"img/rainshow-thumb.png", c:"top-bar-image"});
+                        br();
+                      }, "Rain Shower");
+                    });
+                    li(function(){
+                      a({href:"#art-contact", c:"menu-item", style:"text-align: center"}, function(){
+                        img({src:"img/contact thumbnail.png", c:"top-bar-image"});
+                        br();
+                      }, "Contact");
+                    });
+                    li(function(){
+                      a({href:"#art-inspire", c:"menu-item", style:"text-align: center"}, function(){
+                        img({src:"img/dynamicspace thumbnail.png", c:"top-bar-image"});
+                        br();
+                      }, "Inspiratories");
+                    });
+                    li(function(){
+                      a({href:"#art-finn", c:"menu-item", style:"text-align: center"}, function(){
+                        img({src:"img/finnhill thumbnail.png", c:"top-bar-image"});
+                        br();
+                      }, "Finn Hill");
+                    });
+                  });
+                });
+                li({c:"has-dropdown", id:"electronics-menu"}, function(){
+                  a({href:"#electronics"}, "Electronics");
+                  ul({c:"dropdown"}, function(){
+                    li(function(){
+                      a({href:"#electronics", c:"menu-item"},"Coming soon!");
+                    });
+                  });
+                });
+                li(function(){
+                  a({href:"#cv", c:"menu-item"}, "CV");
+                });
+                li(function(){
+                  a({href:"#editor", c:"menu-item"}, "Editor");
+                });
+              });
+              ul({c:"right"}, function(){
+                li({c:"has-dropdown", id:"contact-menu"}, function(){
+                  a(function(){
+                    i({c:"icon-envelope icon-large"});
+                  });
+                  ul({c:"dropdown"}, function(){
+                    li(function(){
+                      a({href:"", "data-reveal-id":"email-modal", "data-reveal-ajax":"true", 
+                          c:"menu-item", style:"text-align:center"}, function(){
+                        i({c:"icon-envelope icon-2x"});
+                      });
+                    });
+                    li(function(){
+                      a({href:"https://github.com/danheidel", c:"menu-item", target:"_blank", style:"text-align: center"}, function(){
+                        i({c:"icon-github icon-3x"});
+                      });
+                    });
+                    li(function(){
+                      a({href:"https://twitter.com/dan_heidel", c:"menu-item", target:"_blank", style:"text-align: center"}, function(){
+                        i({c:"icon-twitter-sign icon-3x"});
+                      });
+                    });
+                    li(function(){
+                      a({href:"https://www.linkedin.com/profile/view?id=43637762", c:"menu-item", 
+                          target:"_blank", style:"text-align: center"}, function(){
+                        i({c:"icon-linkedin-sign icon-3x"});
+                      });
+                    });
+                  });
+                });
+                li({id:"showAbout"}, function(){
+                  a({"data-reveal-id":"about-modal"}, function(){
+                    i({c:"icon-info icon-large"});
+                  });
+                });
+                li(function(){
+                  a({id:"hideAll"}, function(){
+                    i({c:"icon-minus-sign-alt icon-large"});
+                  });
+                });
+                li({id:"bgOptions"}, function(){
+                  a({"data-reveal-id":"bg-modal", "data-reveal-ajax":"true"}, function(){
+                    i({c:"icon-cog icon-large"});
+                  });
+                });
+              });
+            });
+          });
+        });
+        for(var rep=0;rep<10;rep++){
+          for(var rep1=0;rep1<5;rep1++){
+            oj.br();
+          }
+          oj.p('!!');
+        }
+        p({insert:function(){
+          $(document).foundation();
+          initializeBackground();
+          //alert('foo');
+        }});
+      })
+    });
+    
+    function initializeBackground(){
+      window.myCanvas = document.getElementById("background-canvas");
+      window.myCtx = myCanvas.getContext('2d');
+      window.editorCanvas = document.getElementById("foreground-canvas");
+      window.editorCtx = editorCanvas.getContext('2d');
+  
+      function resizeCanvas(){
+        myCanvas.width = ($(this).innerWidth());
+        myCanvas.height = ($(this).innerHeight());
+        myCtx.imageData = myCtx.getImageData(0,0, myCanvas.width, myCanvas.height);
+        myCtx.gArray = myCtx.imageData.data; // data is a Uint8ClampedArray
+        myCtx.fillStyle = "rgb(100,0,0)";
+        myCtx.fillRect(0, 0, myCanvas.width, myCanvas.height);
+        editorCanvas.width = $(this).innerWidth();
+        editorCanvas.height = $(this).innerHeight();
+      };
+      resizeCanvas();
+  
+      bgVars.initBG($('#bg-modal'));
+      bgVars.selectBG((Math.random()*2)>>0);
+      bgVars.initBgVars(myCanvas, myCtx);
+  
+      window.intervalHandle = requestInterval(function(){ updateCanvas(); } , 50);
+  
+      function updateCanvas(){
+        bgVars.updateBgCanvas();
+      }
+    }
+  </script>
+</html>
